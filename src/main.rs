@@ -1,3 +1,5 @@
+use std::f32::consts::PI;
+
 use bevy::{diagnostic::LogDiagnosticsPlugin, prelude::*};
 use bevy_flycam::prelude::*;
 
@@ -38,6 +40,17 @@ fn setup(mut commands: Commands, ass: Res<AssetServer>) {
         },
         FlyCam,
     ));
+
+    commands.spawn(DirectionalLightBundle {
+        transform: Transform::from_xyz(0.0, 2.0, 0.0)
+            .with_rotation(Quat::from_rotation_x(-PI / 4.)),
+        directional_light: DirectionalLight {
+            illuminance: 32000.0,
+            shadows_enabled: true,
+            ..default()
+        },
+        ..default()
+    });
 }
 
 fn rotate(
